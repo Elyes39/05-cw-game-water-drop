@@ -1,21 +1,10 @@
 /* Charity: water Brand Colors & Fonts
 
-Primary Colors:
-- Yellow:     #FFC907
-- Blue:       #2E9DF7
+Brand colors used in this project:
+- Yellow:     #FFD100  (primary jerry can)
+- Light Blue: #DDF3FF  (background)
 
-Secondary Colors:
-- Light Blue: #8BD1CB
-- Green:      #4FCB53
-- Orange:     #FF902A
-- Red:        #F5402C
-- Dark Green: #159A48
-- Pink:       #F16061
-
-Fonts:
-- Proxima Nova
-- Avenir
-
+Font: simple sans-serif for broad compatibility
 */
 
 * {
@@ -29,7 +18,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f0f0f0;
+    background-color: #DDF3FF; /* light blue background */
     font-family: Arial, sans-serif;
 }
 
@@ -45,10 +34,10 @@ body {
     justify-content: space-between;  /* Space between score and button */
     align-items: center;
     width: 800px;
-    padding: 10px;
-    background-color: #fff;
+    padding: 10px 16px;
+    background-color: rgba(255,255,255,0.9);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .timer {
@@ -60,8 +49,8 @@ body {
 #game-container {
     width: 800px;
     height: 600px;
-    background-color: #e6f7ff;
-    border: 2px solid #333;
+    background-color: #ffffff;
+    border: 2px solid rgba(0,0,0,0.12);
     border-radius: 8px;
     position: relative;
     overflow: hidden;
@@ -93,8 +82,8 @@ body {
     width: 60px;  /* increased from 40px */
     height: 60px; /* increased from 40px */
     background-color: #0099ff;
-    border-radius: 50%;
-    animation: dropFall linear forwards;
+    border-radius: 8px;
+    animation: floatDown linear forwards;
     transform-origin: center;
     cursor: pointer;
     padding: 15px;  /* Add padding for larger click area */
@@ -109,6 +98,95 @@ body {
 .bad-drop {
     background-color: #ff4444;
 }
+
+/* Jerry cans (good objects) */
+.jerry {
+    width: 64px;
+    height: 64px;
+    background-color: #FFD100; /* charity: water yellow */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+
+/* Pollutant (bad object) - reuse water can image but tint/replace with emoji if needed */
+.pollutant {
+    width: 60px;
+    height: 60px;
+    background-color: #333333;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+
+/* Floating feedback text */
+.feedback {
+    position: absolute;
+    pointer-events: none;
+    font-weight: bold;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+    animation: floatUp 800ms ease-out forwards;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-40px); opacity: 0; }
+}
+
+@keyframes floatDown {
+    from { transform: translateY(-40px); }
+    to { transform: translateY(640px); }
+}
+
+/* Overlay screens */
+.overlay-screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    background: rgba(13, 36, 52, 0.02);
+    z-index: 50;
+}
+
+.overlay-screen.hidden { display: none; }
+
+.cw-logo { width: 180px; }
+
+/* Start screen instructions: keep text readable and wrapped */
+.start-instructions {
+    max-width: 640px; /* keep inside the overlay and game container */
+    padding: 0 16px;
+    text-align: center;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.3;
+}
+
+.primary-btn {
+    background-color: #FFD100;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.primary-btn:hover { filter: brightness(0.95); }
+
+.final-score { font-size: 24px; font-weight: bold; }
+
+.credits { font-size: 12px; color: #333; }
+
+#mute-btn { background: none; border: none; font-size: 20px; cursor: pointer; }
 
 .game-title {
     color: #131313;
@@ -142,4 +220,7 @@ body {
     #game-container {
         height: 70vh;
     }
+    .cw-logo { width: 140px; }
+    .game-title { font-size: 36px; }
+    .start-instructions { max-width: 86vw; font-size: 15px; }
 }
